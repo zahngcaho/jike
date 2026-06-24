@@ -6,7 +6,7 @@ import axios from 'axios'
 // 3.request/response interceptor
 
 const request = axios.create({
-  baseURL: 'http://geek.itheima.net/v1_0',
+  baseURL: 'https://geek.itheima.net/v1_0',
   timeout: 5000
 })
 

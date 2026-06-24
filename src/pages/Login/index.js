@@ -1,10 +1,18 @@
 import './index.scss'
-import { Card, Form, Input, Button } from 'antd'
+import { Card, Form, Input, Button, message } from 'antd'
 import logo from '@/assets/logo.png'
-
+import { useDispatch } from 'react-redux'
+import { fetchLogin } from '@/store/modules/user'
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
-  const onFinish = (values) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const onFinish = async (values) => {
     console.log(values)
+    // 异步登录
+    await dispatch(fetchLogin(values))
+    navigate('/')
+    message.success('登录成功')
   }
   return (
     <div className="login">
@@ -17,7 +25,7 @@ const Login = () => {
             /* 多条验证规则，串行校验 */
             rules={[
               { required: true, message: '请输入手机号' },
-              , { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' }
+              { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' }
             ]}
           >
             <Input size="large" placeholder="请输入手机号" />
