@@ -1,7 +1,11 @@
 // 统一中转导出
 // import {request} from '@/utils'
 import request from "./request";
+import { getToken, setToken, removeToken } from "./token";
 
 export {
-  request
+  request,
+  getToken,
+  setToken,
+  removeToken
 }
