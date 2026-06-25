@@ -6,12 +6,16 @@ import { removeToken, getToken, setToken as _setToken } from '@/utils/token'
 const userStore = createSlice({
   name: 'user',
   initialState: {
-    token: getToken() || ''
+    token: getToken() || '',
+    userInfo: {}
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload
       _setToken(action.payload)
+    },
+    setUserInfo(state, action) {
+      state.userInfo = action.payload
     }
   }
 })
@@ -29,7 +33,15 @@ const fetchLogin = (loginForm) => {
   }
 }
 
-const { setToken } = userStore.actions
+const fetchUserInfo = () => {
+  return async (dispatch) => {
+    await request.get('/user/profile').then(res => {
+      dispatch(setUserInfo(res.data))
+    })
+  }
+}
 
-export { fetchLogin, setToken }
+const { setToken, setUserInfo } = userStore.actions
+
+export { fetchLogin, setToken, fetchUserInfo }
 export default userStore.reducer
