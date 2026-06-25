@@ -16,6 +16,11 @@ const userStore = createSlice({
     },
     setUserInfo(state, action) {
       state.userInfo = action.payload
+    },
+    clearUserInfo(state) {
+      removeToken()
+      state.token = ''
+      state.userInfo = {}
     }
   }
 })
@@ -41,7 +46,7 @@ const fetchUserInfo = () => {
   }
 }
 
-const { setToken, setUserInfo } = userStore.actions
+const { setToken, setUserInfo, clearUserInfo } = userStore.actions
 
-export { fetchLogin, setToken, fetchUserInfo }
+export { fetchLogin, fetchUserInfo, clearUserInfo }
 export default userStore.reducer
