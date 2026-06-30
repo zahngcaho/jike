@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { request } from '@/utils'
 import { removeToken, getToken, setToken as _setToken } from '@/utils/token'
+import { loginAPI, getProfileAPI } from '@/apis/user'
 
 const userStore = createSlice({
   name: 'user',
@@ -29,7 +30,7 @@ const userStore = createSlice({
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     // 异步请求数据
-    await request.post('/authorizations', loginForm).then(res => {
+    await loginAPI(loginForm).then(res => {
       // 保存 token 到 store
       dispatch(setToken(res.data.token))
     }).catch(err => {
@@ -40,7 +41,7 @@ const fetchLogin = (loginForm) => {
 
 const fetchUserInfo = () => {
   return async (dispatch) => {
-    await request.get('/user/profile').then(res => {
+    await getProfileAPI().then(res => {
       dispatch(setUserInfo(res.data))
     })
   }
